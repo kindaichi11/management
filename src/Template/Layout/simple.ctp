@@ -3,12 +3,12 @@
 <html>
 <head>
   <?=$this->Html->charset() ?>
+  <?=$this->Html->css('simple') ?> 
   <title><?=$this->fetch('title') ?></title>
-　<?=$this->Html->css('simple') ?> -->
 </head>
 <body>
     <header class="head row">
-        <?=$this->fetch('title') ?>
+        <h5>headerです</h5>
     </header>
     <div class="content row">
         <?=$this->fetch('content') ?>

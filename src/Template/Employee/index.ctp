@@ -2,10 +2,8 @@
 <html lang="ja">
 <head>
   <?=$this->Html->charset() ?>
-  <?=$this->Html->css('simple') ?> 
 </head>
 <body>
-  <?=$this->element('nav')?>
   <?=$this->element('header',$header) ?>
   <table>
     <tr>
