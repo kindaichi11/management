@@ -1,3 +1,3 @@
-<header class="head row">
+<header>
     <?=$subtitle ?>
 </header>

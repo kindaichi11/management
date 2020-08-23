@@ -1,5 +1,3 @@
-<footer class="foot row">
+<footer>
     <?=$copyright ?>
 </footer>
-
-

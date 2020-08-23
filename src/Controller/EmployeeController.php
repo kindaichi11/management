@@ -25,11 +25,17 @@ class EmployeeController extends AppController
     public function index()
     {
         // $this->autoLayout=false;
-        // エレメント
+        // エレメント設定
         $this->set('header', ['subtitle'=>'employeeヘッダーです']);
         $this->set('footer', ['copyright'=>'employee フッターです']);
         
-        $employee = $this->Employee->find('all')->contain(['position_name']);
+        // 検索
+        if ($this->request->is('post')) {
+            $find = $this->request->data['Employee']['name'];
+            $employee = $this->Employee->find()->where(['name like' => '%' . $find . '%'])->contain(['position_name']);
+        } else {
+            $employee = $this->Employee->find('all')->contain(['position_name']);
+        }
 
         // 役職名がDBから取得できていない場合、空のオブジェクトを取得
         foreach ($employee as $emp) {
