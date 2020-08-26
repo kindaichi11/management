@@ -34,7 +34,7 @@ class EmployeeTable extends Table
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
-        // 役職名テーブルを結合
+        // 従業員に対し役職名は多
         $this->belongsTo('position_name')->setForeignKey('position');
     }
 

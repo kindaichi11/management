@@ -15,6 +15,9 @@ class EmployeeController extends AppController
 {
     public function initialize()
     {
+        // $this->autoLayout=false;
+        // エレメント設定
+        $this->set('footer', ['copyright'=>'2020MIS研修']);
     }
 
     /**
@@ -23,12 +26,10 @@ class EmployeeController extends AppController
      * @return \Cake\Http\Response|null
      */
     public function index()
-    {
-        // $this->autoLayout=false;
+    {   
         // エレメント設定
-        $this->set('header', ['subtitle'=>'employeeヘッダーです']);
-        $this->set('footer', ['copyright'=>'employee フッターです']);
-        
+        $this->set('header', ['subtitle'=>'従業員一覧']);
+
         // 検索
         if ($this->request->is('post')) {
             $find = $this->request->data['Employee']['name'];
@@ -47,82 +48,28 @@ class EmployeeController extends AppController
     }
 
     /**
-     * View method
-     *
-     * @param string|null $id Employee id.
-     * @return \Cake\Http\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $employee = $this->Employee->get($id, [
-            'contain' => [],
-        ]);
-
-        $this->set('employee', $employee);
-    }
-
-    /**
      * Add method
      *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add()
     {
-        $employee = $this->Employee->newEntity();
-        if ($this->request->is('post')) {
-            $employee = $this->Employee->patchEntity($employee, $this->request->getData());
-            if ($this->Employee->save($employee)) {
-                $this->Flash->success(__('The employee has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The employee could not be saved. Please, try again.'));
-        }
-        $this->set(compact('employee'));
+        // エレメント設定
+        $this->set('header', ['subtitle'=>'従業員登録']);
     }
 
     /**
-     * Edit method
-     *
-     * @param string|null $id Employee id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * regist method
+     * 従業員新規登録
+     * 
      */
-    public function edit($id = null)
-    {
-        $employee = $this->Employee->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $employee = $this->Employee->patchEntity($employee, $this->request->getData());
-            if ($this->Employee->save($employee)) {
-                $this->Flash->success(__('The employee has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The employee could not be saved. Please, try again.'));
+    public function regist() {
+        if ($this->request->is('post')){
+            $data  = $this->request->data['Employee'];
+            $entity = $this->Employee->newEntity($data);
+            $this->Employee->save($entity);
         }
-        $this->set(compact('employee'));
+        return $this->redirect(['action'=>'index']);
+
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Employee id.
-     * @return \Cake\Http\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $employee = $this->Employee->get($id);
-        if ($this->Employee->delete($employee)) {
-            $this->Flash->success(__('The employee has been deleted.'));
-        } else {
-            $this->Flash->error(__('The employee could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['action' => 'index']);
-    }
 }

@@ -38,6 +38,7 @@ class PositionNameTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        // 役職名に対し従業員は多
         $this->hasMany('Employee')->setForeignKey('id');
     }
 

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <!-- 従業員一覧 -->
   <?=$this->Html->charset() ?>
   <?= $this->Html->css('simple.css') ?>
 </head>
@@ -9,7 +10,8 @@
   <?=$this->Form->create(null,
     ['type'=>'post',
     'url'=>['controller'=>'Employee',
-      'action'=>'index']]) ?>
+    'action'=>'index']]) 
+  ?>
   <p>名前検索</p>
   <div><?=$this->Form->text('Employee.name') ?></div>
   <div><?=$this->Form->submit('検索') ?></div>
