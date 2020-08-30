@@ -7,13 +7,15 @@
 </head>
 <body>
   <?=$this->element('header',$header) ?>
-  <?=$this->Form->create(null,
-    ['type'=>'post',
-    'url'=>['controller'=>'Employee',
-    'action'=>'index']]) 
+  <?=$this->Form->create(null, [
+      'type'=>'post',
+      'url' => [ 
+        'controller'=>'Employee',
+        'action'=>'index'
+      ]
+    ]) 
   ?>
-  <p>名前検索</p>
-  <div><?=$this->Form->text('Employee.name') ?></div>
+  <div><?=$this->Form->input('Employee.name', array('label' => '従業員名検索')) ?></div>
   <div><?=$this->Form->submit('検索') ?></div>
   <?=$this->Form->end() ?>
   <table>
