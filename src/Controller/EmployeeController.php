@@ -31,22 +31,20 @@ class EmployeeController extends AppController
         // index特有のエレメント設定
         $this->set('header', ['subtitle'=>'従業員一覧']);
 
-        // 従業員検索
+        // 検索ボタンが押されたら
         if ($this->request->is('post')) {
+            // リクエストを取得
             $find = $this->request->getData('Employee.name');
+            // 画面から入力された検索条件で従業員テーブルを検索
             $employee = $this->Employee->find()->where(['name like' => '%' . $find . '%'])->contain(['position_name']);
         } else {
+            // 従業員を全表示
             $employee = $this->Employee->find('all')->contain(['position_name']);
         }
 
         // 役職名がDBから取得できていない場合、空のオブジェクトを作成
         foreach ($employee as $emp) {
-            // if (is_null($emp->position_name)) {
-            //     $emp['position_name'] =  (object) ['position_name' => ''];
-            // }
-
-            $emp->position_name ?  null : $emp['position_name'] = (object) ['position_name' => ''];
-
+            $emp->position_name = $emp->position_name ?? (object)['position_name'];
         }
         $this->set('employee',$employee);
     }
@@ -57,11 +55,12 @@ class EmployeeController extends AppController
      */
     public function add()
     {
-        // add特有のエレメント設定
+        // addページ特有のエレメント設定
         $this->set('header', ['subtitle'=>'従業員登録']);
 
-        // 役職名リスト
+        // 役職名テーブルの読み込み
         $table = $this->loadModel('PositionName');
+        // 役職名リストを作成
         $posi_list = $table->find('list' , ['valueField' => 'position_name']);
         $this->set('list', $posi_list);
     }
@@ -71,8 +70,12 @@ class EmployeeController extends AppController
      * 従業員新規登録処理
      */
     public function regist() {
+
+        // 登録ボタンが押されたら
         if ($this->request->is('post')){
+            // リクエストを取得
             $new_data = $this->request->getData('Employee');
+            // 従業員テーブルに新規登録
             $entity = $this->Employee->newEntity($new_data);
             $this->Employee->save($entity);
         }

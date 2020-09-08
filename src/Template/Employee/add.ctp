@@ -16,6 +16,7 @@
     ])
   ?>
   <div><?=$this->Form->input('Employee.name', array('label' => '名前')) ?></div>
+  <!-- コントローラーから受け取った従業員リストをセレクトボックスで表示 -->
   <div><?=$this->Form->input('Employee.position', array('options' => $list, 'label' => '役職名',  'empty' => 'なし')); ?></div>
   <div><?=$this->Form->submit('登録') ?></div>
   <?=$this->Form->end() ?>
