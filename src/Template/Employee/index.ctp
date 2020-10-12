@@ -26,7 +26,7 @@
       <tr>
         <td><?= ($obj->id) ?></td>
         <td><?= ($obj->name) ?></td>
-        <td><?= ($obj->position_name->position_name) ?></td>
+        <td><?= ($obj->position_name = $obj->position_name->position_name ?? '') ?></td>
       </tr>
     <?php endforeach; ?>
   </table>

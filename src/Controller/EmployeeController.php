@@ -42,10 +42,6 @@ class EmployeeController extends AppController
             $employee = $this->Employee->find('all')->contain(['position_name']);
         }
 
-        // 役職名がDBから取得できていない場合、空のオブジェクトを作成
-        foreach ($employee as $emp) {
-            $emp->position_name = $emp->position_name ?? (object)['position_name'];
-        }
         $this->set('employee',$employee);
     }
 
